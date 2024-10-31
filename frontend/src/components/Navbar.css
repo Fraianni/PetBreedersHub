@@ -1,0 +1,53 @@
+.custom-navbar {
+    background-color: var(--main-black); /* Colore di sfondo scuro */
+    border-bottom: 2px solid var(--main-green); /* Linea inferiore verde */
+    padding: 5px;
+}
+
+.custom-navbar .navbar-brand img {
+    transition: transform 0.3s; /* Effetto di transizione per il logo */
+    height: 60px; /* Altezza iniziale dell'immagine */
+}
+
+.custom-navbar .navbar-brand img:hover {
+    transform: scale(1.1); /* Ingrandimento al passaggio del mouse */
+}
+
+.custom-navbar .nav-link {
+    color: white !important; /* Colore del testo verde */
+    text-decoration: none !important;
+    transition: color 0.3s; /* Transizione per il colore */
+    font-size: 16px; /* Dimensione del font iniziale */
+}
+
+.custom-navbar .nav-link:hover {
+    color: #ffffff; /* Colore bianco al passaggio del mouse */
+}
+
+.custom-navbar .navbar-toggler {
+    border-color: white; /* Colore del bordo del toggler */
+}
+
+@media (min-width: 768px) {
+    .custom-navbar {
+        padding: 10px 20px; /* Spaziatura interna per schermi più grandi */
+    }
+
+    .custom-navbar .navbar-brand img {
+        height: 80px; /* Altezza dell'immagine per schermi più grandi */
+    }
+
+    .custom-navbar .nav-link {
+        font-size: 18px; /* Dimensione del font per schermi più grandi */
+    }
+}
+
+@media (min-width: 992px) {
+    .custom-navbar .navbar-brand img {
+        height: 100px !important; /* Altezza dell'immagine per schermi ancora più grandi */
+    }
+
+    .custom-navbar .nav-link {
+        font-size: 2vw !important; /* Dimensione del font per schermi ancora più grandi */
+    }
+}

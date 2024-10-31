@@ -1,0 +1,21 @@
+.custom-footer {
+    background-color: var(--main-black); /* Sfondo del footer */
+    color: white;
+    padding: 20px; /* Spaziatura interna */
+    text-align: center; /* Testo centrato */
+}
+
+.footer-content {
+    margin-bottom: 15px; /* Margine inferiore */
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--main-green); /* Linea superiore */
+    padding-top: 10px; /* Spaziatura sopra */
+    font-size: 14px; /* Dimensione del font */
+    color: #ffffff; /* Colore del testo bianco */
+}
+
+.footer-bottom p {
+    margin: 0; /* Rimuovi margini */
+}
