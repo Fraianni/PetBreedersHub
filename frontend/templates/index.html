@@ -1,0 +1,16 @@
+{% load static %}
+
+
+<head>
+  <link rel="manifest" href="{% static '/manifest.json' %}"></link>
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Breeders Hub</title>
+  <link rel="stylesheet" type="text/css" href="{% static '/main.css' %}">
+</head>
+<body>
+  <div id="app"></div> <!-- Questo è dove verrà montata l'applicazione React -->
+  <script src="{% static '/main.js' %}"></script> <!-- Assicurati di specificare il percorso corretto di main.js -->
+</body>
+</html>
