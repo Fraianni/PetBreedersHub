@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField'; // Import TextField
+import './Login.css';
+import { Container } from "react-bootstrap";
+import axiosInstance from './axiosConfig'; // Ensure you import axiosInstance correctly
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -10,64 +15,61 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     setError("");
-
+  
     try {
-      const response = await fetch("/api/login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
+      const response = await axiosInstance.post("/login/", {
+        username,
+        password,
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        // Reindirizza l'utente in base al ruolo
-        if (data.role === "allevatore") {
-          navigate("/dashboard/allevatori");
-        } else if (data.role === "utente") {
-          navigate("/dashboard/utenti");
-        } else {
-          navigate("/dashboard/generale"); // Altra pagina per utenti generici o ospiti
-        }
+  
+      const data = response.data;
+  
+      if (data.role === "allevatore") {
+        navigate("/dashboard/allevatori");
+      } else if (data.role === "utente") {
+        navigate("/dashboard/utenti");
       } else {
-        setError(data.message || "Login fallito. Riprova.");
+        navigate("/dashboard/generale");
       }
     } catch (error) {
       console.error("Errore durante il login:", error);
-      setError("Errore di connessione. Riprova più tardi.");
+      const message = error.response?.data?.message || "Login fallito. Riprova.";
+      setError(message);
     }
   };
 
   return (
-    <div className="login-container">
-      <h2>Accedi</h2>
-      <form onSubmit={handleLogin}>
-        <div className="form-group">
-          <label htmlFor="username">Nome utente</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <p className="error-message">{error}</p>}
-        <button type="submit">Login</button>
-      </form>
-    </div>
+    <Container className="mt-2">
+      <div className="login-container">
+        <h2>Accedi</h2>
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <TextField
+              label="Nome utente"
+              variant="outlined"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              fullWidth
+            />
+          </div>
+          <div className="form-group">
+            <TextField
+              label="Password"
+              variant="outlined"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              fullWidth
+            />
+          </div>
+          {error && <p className="error-message">{error}</p>}
+          <Button variant="contained" type="submit">Login</Button>
+        </form>
+      </div>
+    </Container>
   );
 };
 

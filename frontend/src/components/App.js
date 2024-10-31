@@ -5,7 +5,9 @@ import BreedersDashboard from "./BreedersDashboard";
 import UsersDashboard from "./UsersDashboard";
 import GeneralDashboard from "./GeneralDashboard";
 import Home from "./Home";
-
+import '../../static/css/App.css'
+import CustomNavbar from "./Navbar";
+import Footer from "./Footer";
 const App = () => {
   // Simuliamo un controllo di autenticazione
   const isAuthenticated = () => {
@@ -20,6 +22,7 @@ const App = () => {
 
   return (
     <Router>
+      <CustomNavbar/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -50,6 +53,7 @@ const App = () => {
           }
         />
       </Routes>
+      <Footer/>
     </Router>
   );
 };
