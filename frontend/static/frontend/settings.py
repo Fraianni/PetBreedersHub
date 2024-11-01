@@ -38,10 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Shop',
-    'BreedersHub',
-    'animals',
-    'PetBreedersHub'
 ]
 
 MIDDLEWARE = [
@@ -84,7 +80,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-DOG_API_KEY = 'live_bcj5LybmHXPt21k2jaEWOYemg1wch6k9yyoDuKAbonbRW3Kqt1Ae2NPZ5FxCsnrc'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
