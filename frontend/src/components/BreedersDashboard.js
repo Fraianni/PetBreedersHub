@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Modal, Box, Button, TextField } from "@mui/material";
 import Select from 'react-select'; // Import react-select
 import axios from 'axios'; 
+import { axiosInstance, axiosMultipartInstance } from './axiosConfig'; // Aggiorna il percorso secondo la tua struttura di cartelle
+import BreederDogsList from "./BreederDogsList"; // Importa il componente
 
 const DogForm = ({ onClose, onSubmit }) => {
   const [dogData, setDogData] = useState({
@@ -39,20 +41,20 @@ const DogForm = ({ onClose, onSubmit }) => {
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
 
-    if (type === "file") {
-      const file = files[0];
-      setDogData({
-        ...dogData,
-        photo: file
-      });
-      setPhotoPreview(URL.createObjectURL(file));
+    if (type === "file" && files.length > 0) {
+        const file = files[0];
+        setDogData({
+            ...dogData,
+            photo: file
+        });
+        setPhotoPreview(URL.createObjectURL(file)); // Anteprima dell'immagine
     } else {
-      setDogData({
-        ...dogData,
-        [name]: value
-      });
+        setDogData({
+            ...dogData,
+            [name]: value
+        });
     }
-  };
+};
 
   const handleSelectChange = (selectedOption, field) => {
     setDogData({
@@ -61,22 +63,46 @@ const DogForm = ({ onClose, onSubmit }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(dogData);
-    onClose();
-    setDogData({
-      name: "",
-      gender: null, // Reset gender
-      breed: null, // Reset breed
-      age: "",
-      color: "",
-      weight: "",
-      height: "",
-      photo: null
-    });
-    setPhotoPreview(null);
-  };
+
+    // Creazione di un oggetto FormData
+    const formData = new FormData();
+    formData.append("name", dogData.name);
+    formData.append("gender", dogData.gender.value); // Usa solo il valore
+    formData.append("breed", dogData.breed.value); // Usa solo il valore
+    formData.append("age", dogData.age);
+    formData.append("color", dogData.color);
+    formData.append("weight", dogData.weight);
+    formData.append("height", dogData.height);
+
+    // Aggiunge la foto se esiste
+    if (dogData.photo) {
+        formData.append("photo", dogData.photo);
+    }
+
+    try {
+        // Invia la richiesta utilizzando axiosInstance con FormData
+        const response = await axiosMultipartInstance.post("animals/add-animal/", formData, {
+
+        });
+        console.log("Cane creato con successo:", response.data);
+        onClose(); // Chiude il modal al successo
+        setDogData({
+            name: "",
+            gender: null,
+            breed: null,
+            age: "",
+            color: "",
+            weight: "",
+            height: "",
+            photo: null
+        });
+        setPhotoPreview(null);
+    } catch (error) {
+        console.error("Errore nella creazione del cane:", error);
+    }
+}
 
   return (
     <form onSubmit={handleSubmit}>
@@ -149,6 +175,8 @@ const BreedersDashboard = () => {
     <div>
       <h2>Breeders Dashboard</h2>
       <p>Section dedicated to breeders.</p>
+
+      <BreederDogsList />
       <Button variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>Aggiungi Esemplare</Button>
 
       <Modal

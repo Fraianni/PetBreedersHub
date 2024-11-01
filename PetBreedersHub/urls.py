@@ -22,9 +22,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include("BreedersHub.api_urls")),
+    path('api/animals/', include("animals.api_urls")),  # rotte di animals
     path('', index, name='index'),  # Questa cattura tutte le richieste alla root
     path('<path:path>/', index),  # Questa cattura tutte le altre rotte
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

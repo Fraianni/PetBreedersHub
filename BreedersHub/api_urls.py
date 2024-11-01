@@ -12,6 +12,7 @@ urlpatterns = [
     path('breeder/register/', breeder_register, name='breeder-register'),
     path('breeds/', BreedListView.as_view(), name='breed-list-create'),
     path('breeder/breeds/', BreederBreedsListView.as_view(), name='breed-list-create'),
+    path('breeder/dogs', BreederDogsListView.as_view(), name='breeder_dogs'),
 
     # altre rotte
 ]

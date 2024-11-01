@@ -9,8 +9,16 @@
             'Content-Type': 'application/json',
         },
     });
-
-    export default axiosInstance;
+    
+    const axiosMultipartInstance = axios.create({
+        baseURL: '/api/',  // Imposta la baseURL delle tue API Django
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'),  // Ottieni il token CSRF dai cookie
+            'Content-Type': 'multipart/form-data'
+        },
+    });
+    
+    export { axiosInstance, axiosMultipartInstance };
 
     function getCookie(name) {
         let cookieValue = null;

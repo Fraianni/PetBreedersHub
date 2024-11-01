@@ -13,4 +13,4 @@ class UserSerializer(serializers.ModelSerializer):
 class BreedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Breed
-        fields = ['id', 'name']
+        fields = '__all__'  # Includes all fields of the User model
