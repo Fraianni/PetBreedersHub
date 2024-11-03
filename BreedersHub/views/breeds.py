@@ -5,6 +5,7 @@ from rest_framework import generics
 from BreedersHub.models.breeder import Breed
 from BreedersHub.serializers.serializers import BreedSerializer
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
 
 from animals.serializers.serializers import DogSerializer
 from animals.models.animals import *
@@ -41,5 +42,18 @@ class BreederDogsListView(APIView):
         dogs = Dog.objects.filter(breed__breeder=breeder)
         serializer = DogSerializer(dogs, many=True)
         return Response(serializer.data)
+class DogByBreedAndGenderView(APIView):
+    def get(self, request):
+        breed = request.query_params.get('breed', None)
+        gender = request.query_params.get('gender', None)
 
+        # Filtering dogs by breed and gender
+        dogs = Dog.objects.all()  # Fetch all dogs
+        if breed:
+            dogs = dogs.filter(breed__id=breed)  # Assuming you have a relationship to a Breed model
+        if gender:
+            dogs = dogs.filter(gender=gender)  # Assuming you have a gender field in your Dog model
+
+        serializer = DogSerializer(dogs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 

@@ -1,7 +1,7 @@
 // AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import axiosInstance from './axiosConfig'; // Update the path accordingly
+import {axiosInstance} from './axiosConfig'; // Update the path accordingly
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
