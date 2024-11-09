@@ -5,7 +5,11 @@ import axios from 'axios';
 import Select from 'react-select';
 import { TextField, Button, Container, Typography, Alert, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+<<<<<<< HEAD
 import { axiosInstance } from './axiosConfig';
+=======
+import {axiosInstance} from './axiosConfig';
+>>>>>>> d6cdebaddf140785987c5fd1239ab15e776a1ba1
 
 const Register = () => {
     const [formData, setFormData] = useState({
