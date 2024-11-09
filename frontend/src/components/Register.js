@@ -5,7 +5,7 @@ import axios from 'axios';
 import Select from 'react-select';
 import { TextField, Button, Container, Typography, Alert, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import axiosInstance from './axiosConfig';
+import { axiosInstance } from './axiosConfig';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -25,8 +25,8 @@ const Register = () => {
     useEffect(() => {
         const fetchBreeds = async () => {
             try {
-                const dogResponse = await axios.get('/api/breeds/?type=dog');
-                const catResponse = await axios.get('/api/breeds/?type=cat');
+                const dogResponse = await axiosInstance.get('breeds/?type=dog');
+                const catResponse = await axiosInstance.get('breeds/?type=cat');
 
                 // Structure breeds data for select
                 const breedOptions = [
@@ -62,6 +62,7 @@ const Register = () => {
     };
 
     const handleSubmit = async (e) => {
+        
         e.preventDefault();
         if (formData.password !== formData.confirmPassword) {
             setError("Passwords do not match");
@@ -71,11 +72,13 @@ const Register = () => {
             ...formData,
             breeds: formData.breeds.map(breed => breed.value)
         };
+        
         try {
-            const response = await axiosInstance.post('breeder/register/', dataToSubmit);
+            const response = await axiosInstance.post('breeder/register/', dataToSubmit); // Assicurati di includere l'URL completo
             console.log("Registration successful", response.data);
             navigate('/login');
         } catch (err) {
+            console.log(err);
             setError(err.response?.data || "Registration failed");
         }
     };

@@ -11,7 +11,8 @@ __pycache__/
 # React
 frontend/node_modules/
 frontend/build/
-
+frontend/static/frontend/main.js
+frontend/static/frontend/main.css
 # Environment Variables
 .env
 
